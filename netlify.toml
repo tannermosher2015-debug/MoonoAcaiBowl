@@ -1,0 +1,10 @@
+# Mo ʻOno Hawaiʻi — static single-file site, no build step.
+[build]
+  publish = "."
+
+# Pitch phase: reinforce the page-level noindex at the HTTP layer.
+# Remove this [[headers]] block (and the <meta name="robots"> in index.html) once they sign on.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

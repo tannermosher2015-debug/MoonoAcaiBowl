@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- PITCH PHASE: keep this concept out of search so it can't impersonate / outrank Mo ʻOno's real listings.
+     REMOVE this line once they sign on as a client. -->
+<meta name="robots" content="noindex, nofollow" />
+<title>Mo ʻOno Hawaiʻi — Custom Açaí Bowls in Kahului, Maui</title>
+<meta name="description" content="Custom açaí bowls built fresh in our Kahului truck — thick açaí, five fresh fruits, coconut granola, honey, and whatever your ʻono calls for. Across from Costco. From $5." />
+<meta property="og:title" content="Mo ʻOno Hawaiʻi — Custom Açaí Bowls in Kahului" />
+<meta property="og:description" content="Piled past the rim. Custom açaí bowls made to everyone's ʻono — Kahului, Maui, across from Costco." />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Mo ʻOno Hawaiʻi" />
+<!-- og/twitter image: relative for this concept — make ABSOLUTE (https://domain/…) on deploy -->
+<meta property="og:image" content="images/hero-bowl.webp" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Mo ʻOno Hawaiʻi — Custom Açaí Bowls in Kahului" />
+<meta name="twitter:description" content="Piled past the rim. Custom açaí bowls made to everyone's ʻono — Kahului, Maui." />
+<meta name="twitter:image" content="images/hero-bowl.webp" />
+<meta name="theme-color" content="#4C1D33" />
+<!-- progressive enhancement: only hide-then-reveal when JS is alive; no-JS shows all content -->
+<script>document.documentElement.classList.add('js');</script>
+
+<!-- Fonts: isolated links so a single font issue can't kill the other. Fraunces (display) + Hanken Grotesk (body). -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- LCP: fetch the hero bowl as early as possible -->
+<link rel="preload" as="image" href="images/hero-bowl.webp" fetchpriority="high" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap" />
+
+<style>
+/* ============================================================
+   Mo ʻOno Hawaiʻi — single-file build (concept by Frontline Web Designs)
+   5 tokens · Fraunces × Hanken Grotesk · motif: hand-drawn bowl-rim arc
+   ============================================================ */
+:root{
+  --bg:#FBF4E9;        /* coconut cream  */
+  --surface:#F4E7D2;   /* toasted sand   */
+  --primary:#4C1D33;   /* açaí mulberry  */
+  --accent:#E2641E;    /* ripe mango     */
+  --text:#2A211C;      /* warm espresso  */
+
+  --primary-soft:#6a2c47;
+  --accent-ink:#A8430D;   /* burnt mango — accent TEXT on light (AA-safe)  */
+  --accent-soft:#F4B98F;  /* light apricot — accent text on the dark story */
+  --line:rgba(76,29,51,.12);
+  --shadow:0 20px 44px -30px rgba(42,33,28,.32);
+  --shadow-sm:0 8px 22px -16px rgba(42,33,28,.20);
+
+  --serif:"Fraunces", Georgia, "Times New Roman", serif;
+  --sans:"Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --maxw:1180px;
+  --pad:clamp(20px, 5vw, 64px);
+  --section:clamp(76px, 11vw, 136px);
+  --radius:16px;
+  --radius-lg:22px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--sans);
+  font-size:clamp(1.02rem,.55vw + .92rem,1.14rem);
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+h1,h2,h3{
+  font-family:var(--serif);
+  font-weight:600;
+  font-variation-settings:"opsz" 144;
+  line-height:1.02;
+  letter-spacing:-.018em;
+  margin:0;
+  color:var(--primary);
+  text-wrap:balance;
+}
+p{margin:0}
+a{color:inherit}
+img{max-width:100%;display:block}
+
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad)}
+
+/* ---- eyebrow / kicker ---- */
+.kicker{
+  font-family:var(--sans);
+  font-weight:600;
+  font-size:.78rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--accent-ink);
+  display:inline-flex;
+  align-items:center;
+  gap:.6em;
+}
+.kicker--quiet{color:var(--primary-soft)}
+
+/* ---- the motif: hand-drawn rim arc ---- */
+.swash{display:block;width:92px;height:12px;color:var(--accent);margin-top:18px}
+.swash path{fill:none;stroke:currentColor;stroke-width:4;stroke-linecap:round}
+
+/* ---- buttons ---- */
+.btn{
+  --b:var(--primary);--f:var(--bg);
+  display:inline-flex;align-items:center;gap:.55em;
+  background:var(--b);color:var(--f);
+  font-family:var(--sans);font-weight:600;font-size:1rem;
+  padding:15px 28px;min-height:48px;
+  border:0;border-radius:999px;cursor:pointer;text-decoration:none;
+  transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+.btn .arr{transition:transform .25s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+.btn:hover .arr{transform:translateX(4px)}
+.btn--ghost{
+  background:transparent;color:var(--primary);
+  border:1.5px solid var(--line);box-shadow:none;
+}
+.btn--ghost:hover{background:var(--surface);border-color:var(--primary)}
+.btn--mango{--b:var(--accent-ink);--f:#fff} /* white on burnt mango → 6:1 */
+
+.textlink{
+  display:inline-flex;align-items:center;gap:.4em;
+  font-weight:600;color:var(--primary);
+  text-underline-offset:5px;text-decoration-thickness:2px;
+  text-decoration-color:var(--accent);
+}
+.textlink:hover{color:var(--accent-ink)}
+
+/* focus visibility — non-negotiable */
+a:focus-visible,.btn:focus-visible,button:focus-visible{
+  outline:3px solid var(--accent);
+  outline-offset:3px;
+  border-radius:6px;
+}
+
+/* skip link */
+.skip{
+  position:absolute;left:14px;top:-60px;z-index:200;
+  background:var(--primary);color:var(--bg);
+  padding:12px 18px;border-radius:10px;font-weight:600;
+  transition:top .2s ease;
+}
+.skip:focus{top:14px}
+
+/* ============================ NAV ============================ */
+.nav{
+  position:fixed;inset:0 0 auto 0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:18px;padding:14px var(--pad);
+  transition:background .3s ease, box-shadow .3s ease, padding .3s ease;
+}
+.nav.scrolled{background:rgba(251,244,233,.92);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line)}
+.brand{
+  font-family:var(--serif);font-weight:600;font-size:1.34rem;
+  color:var(--primary);text-decoration:none;letter-spacing:-.01em;line-height:1;
+}
+.brand .o{color:var(--accent-ink)}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a:not(.btn){
+  text-decoration:none;font-weight:500;font-size:.98rem;color:var(--text);
+  position:relative;padding:6px 0;
+}
+.nav-links a:not(.btn)::after{
+  content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;
+  background:var(--accent);transition:right .28s ease;
+}
+.nav-links a:not(.btn):hover::after{right:0}
+.nav .btn{padding:11px 22px;min-height:44px;font-size:.95rem}
+
+.hamburger{
+  display:none;flex-direction:column;justify-content:center;gap:5px;
+  width:46px;height:46px;border:1.5px solid var(--line);border-radius:12px;
+  background:rgba(251,244,233,.7);cursor:pointer;
+}
+.hamburger span{display:block;width:20px;height:2px;background:var(--primary);margin-inline:auto;transition:.3s}
+.hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ============================ HERO ============================ */
+.hero{
+  position:relative;padding-top:clamp(112px,16vh,168px);
+  padding-bottom:var(--section);overflow:hidden;
+}
+.hero-grid{
+  display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(28px,5vw,72px);
+  align-items:center;
+}
+.hero-eyebrow{margin-bottom:22px}
+.hero h1{
+  font-size:clamp(3rem,8.6vw,6.6rem);
+  font-weight:600;
+  font-variation-settings:"opsz" 144;
+  letter-spacing:-.03em;line-height:.92;
+}
+.hero h1 .pop{color:var(--accent);font-style:italic;font-variation-settings:"opsz" 144}
+.hero-sub{
+  margin-top:26px;max-width:34ch;font-size:1.16rem;color:#4a3d34;
+}
+.hero-cta{display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:34px}
+.hero-facts{
+  display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:38px;
+  font-size:.92rem;font-weight:500;color:var(--primary-soft);
+}
+.hero-facts span{display:inline-flex;align-items:center;gap:.5em}
+.hero-facts .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+
+/* hero image */
+.hero-photo{position:relative}
+.frame{
+  position:relative;z-index:1;
+  background:var(--surface);border-radius:var(--radius-lg);
+  box-shadow:var(--shadow);overflow:hidden;
+  display:grid;place-items:center;text-align:center;
+  border:1px solid var(--line);
+}
+.frame img{width:100%;height:100%;object-fit:cover;display:block}
+.frame .ph{padding:24px;color:var(--primary-soft)}
+.frame .ph .ico{
+  width:54px;height:54px;margin:0 auto 14px;color:var(--accent);opacity:.9;
+}
+.frame .ph b{display:block;font-family:var(--serif);font-size:1.15rem;color:var(--primary);margin-bottom:4px}
+.frame .ph small{font-size:.82rem;letter-spacing:.04em}
+.hero-photo .frame{aspect-ratio:1/1}
+
+/* ============================ SECTION SHELL ============================ */
+section{padding-block:var(--section)}
+.sec-head{max-width:46ch}
+.sec-head h2{font-size:clamp(2.1rem,5vw,3.5rem);margin-top:14px}
+.sec-head p{margin-top:20px;font-size:1.12rem;color:#4a3d34;max-width:52ch}
+
+/* ============================ MENU / SIZES ============================ */
+.menu-intro{display:grid;grid-template-columns:1fr;gap:8px}
+.sizes{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:56px;
+}
+.size-card{
+  position:relative;background:var(--surface);border-radius:var(--radius);
+  padding:28px 24px 26px;border:1px solid var(--line);
+  transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  overflow:hidden;
+}
+.size-card .rim{position:absolute;top:16px;left:24px;color:var(--accent);width:46px;height:8px}
+.size-card .rim path{fill:none;stroke:currentColor;stroke-width:4;stroke-linecap:round}
+.size-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm);border-color:rgba(76,29,51,.24)}
+.size-card .oz{margin-top:26px;font-weight:600;font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:var(--primary-soft)}
+.size-card .name{font-family:var(--serif);font-size:1.5rem;color:var(--primary);margin-top:4px}
+.size-card .price{font-family:var(--serif);font-weight:600;font-size:clamp(2.1rem,3.4vw,2.9rem);color:var(--accent-ink);margin-top:14px;font-variation-settings:"opsz" 144}
+.size-card .price span{font-size:1.1rem;color:var(--primary-soft);vertical-align:.55em;margin-right:1px}
+.menu-note{
+  margin-top:32px;display:flex;flex-wrap:wrap;gap:10px 26px;align-items:center;
+  font-weight:500;color:var(--primary-soft);font-size:.98rem;
+}
+.menu-note .pill{
+  background:var(--bg);border:1.5px solid var(--line);border-radius:999px;
+  padding:8px 16px;font-size:.9rem;color:var(--primary);
+}
+
+/* ============================ TOPPINGS ============================ */
+.top-grid{
+  display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(32px,5vw,68px);
+  align-items:start;margin-top:54px;
+}
+.top-cols{display:grid;grid-template-columns:1fr 1fr;gap:34px}
+.top-block h3{font-size:1.04rem;font-family:var(--sans);font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--primary);margin-bottom:18px}
+.top-list{list-style:none;margin:0;padding:0;display:grid;gap:13px}
+.top-list li{display:flex;gap:12px;align-items:baseline;font-weight:500}
+.top-list li::before{
+  content:"";flex:0 0 auto;width:16px;height:9px;margin-top:7px;
+  background:no-repeat center/contain
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 14'%3E%3Cpath d='M2 12 C 9 1, 21 1, 28 12' fill='none' stroke='%23E2641E' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+.top-list li .local{color:var(--accent-ink);font-weight:700;margin-left:3px}
+.top-foot{margin-top:30px;font-size:.92rem;color:var(--primary-soft);max-width:46ch}
+.top-photo .frame{aspect-ratio:3/4}
+
+/* ============================ STORY (dark) ============================ */
+.story{
+  position:relative;background:var(--primary);color:var(--bg);
+  padding-block:clamp(84px,12vw,150px);
+}
+.story-rim{position:absolute;top:-1px;left:0;width:100%;height:46px;color:var(--bg);transform:rotate(180deg)}
+.story-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:clamp(32px,5vw,72px);align-items:center}
+.story h2{color:var(--bg);font-size:clamp(2.1rem,4.6vw,3.4rem)}
+.story .kicker{color:var(--accent-soft)}
+.story p{margin-top:20px;color:#f2e3d6;max-width:54ch}
+.story p + p{margin-top:16px}
+.story .name-line{margin-top:26px;font-family:var(--serif);font-style:italic;font-size:1.3rem;color:var(--bg)}
+.story-photo .frame{aspect-ratio:4/4.6;background:#5a2a44;border-color:rgba(255,255,255,.08)}
+.story-photo .frame .ph{color:#e7cdbf}
+.story-photo .frame .ph b{color:#fff}
+.story-photo .frame .ph .ico{color:var(--accent)}
+
+/* ============================ FIND US (CTA) ============================ */
+.find-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,64px);align-items:center;margin-top:50px}
+.find h2{font-size:clamp(2.4rem,6vw,4.2rem)}
+.find-rows{display:grid;gap:2px;margin-top:30px;border-top:1.5px solid var(--line)}
+.find-row{display:flex;gap:18px;align-items:baseline;padding:18px 4px;border-bottom:1.5px solid var(--line)}
+.find-row .lab{flex:0 0 116px;font-weight:600;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-ink)}
+.find-row .val{font-weight:500;font-size:1.06rem}
+.find-row .val a{text-decoration:none;border-bottom:2px solid var(--line)}
+.find-row .val a:hover{border-color:var(--accent)}
+.find-cta{margin-top:34px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.map .frame{aspect-ratio:1/1}
+
+/* ============================ FOOTER ============================ */
+footer{background:var(--primary);color:var(--bg);padding-block:64px 40px}
+.foot-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:30px;align-items:flex-start}
+.foot-brand .brand{color:var(--bg);font-size:1.7rem}
+.foot-brand p{margin-top:12px;color:#e7cdbf;font-family:var(--serif);font-style:italic;font-size:1.18rem}
+.foot-cols{display:flex;flex-wrap:wrap;gap:46px}
+.foot-col h4{font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-soft);margin:0 0 14px}
+.foot-col a,.foot-col p{color:#f2e3d6;text-decoration:none;font-size:.96rem;display:block;margin-bottom:8px}
+.foot-col a:hover{color:#fff;text-decoration:underline;text-underline-offset:4px}
+.foot-bottom{
+  margin-top:48px;padding-top:22px;border-top:1px solid rgba(255,255,255,.14);
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
+  font-size:.82rem;color:#d8bfae;
+}
+.foot-bottom a{color:#d8bfae}
+
+/* ============================ MOTION — whisper, not fade-up slop ============ */
+.reveal{transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1)}
+.js .reveal{opacity:0;transform:translateY(15px)}
+.js .reveal.in{opacity:1;transform:none}
+
+/* size cards: keep hover crisp + let them cascade in, not arrive as one slab */
+.size-card.reveal{transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .5s cubic-bezier(.16,1,.3,1), box-shadow .3s ease, border-color .3s ease}
+.size-card:nth-child(2){transition-delay:.06s}
+.size-card:nth-child(3){transition-delay:.12s}
+.size-card:nth-child(4){transition-delay:.18s}
+.size-card:hover{transition-delay:0s}
+
+/* photos breathe on hover — subtle, clipped by the frame */
+.frame img{transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.frame:hover img{transform:scale(1.035)}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal,.js .reveal,.size-card.reveal{opacity:1;transform:none;transition:none}
+  .btn,.size-card,.nav,.btn .arr,.frame img{transition:none}
+  .frame:hover img{transform:none}
+}
+
+/* ============================ RESPONSIVE ============================ */
+@media (max-width:960px){
+  .hero-grid,.story-grid,.find-grid,.top-grid{grid-template-columns:1fr}
+  .hero-photo{order:-1;max-width:440px}
+  .hero-sub{max-width:46ch}
+  .story-photo,.map{max-width:460px}
+  .sizes{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:760px){
+  .nav-links{
+    position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;align-items:stretch;
+    gap:6px;padding:88px var(--pad) 30px;
+    background:var(--bg);box-shadow:var(--shadow);
+    transform:translateY(-104%);transition:transform .36s cubic-bezier(.4,0,.2,1);
+    border-radius:0 0 26px 26px;
+  }
+  .nav-links.open{transform:translateY(0)}
+  .nav-links a:not(.btn){font-size:1.18rem;font-family:var(--serif);padding:12px 0;border-bottom:1px solid var(--line)}
+  .nav-links a:not(.btn)::after{display:none}
+  .nav-links .btn{margin-top:14px;justify-content:center}
+  .hamburger{display:flex}
+  .top-cols{grid-template-columns:1fr;gap:28px}
+}
+@media (max-width:600px){
+  /* mobile hero is image-first; tighten its rhythm so it reads designed, not shrunk */
+  .hero{padding-top:100px}
+  .hero-photo{max-width:380px;margin-inline:auto}
+  .hero-sub{font-size:1.08rem}
+}
+@media (max-width:430px){
+  .sizes{grid-template-columns:1fr 1fr;gap:12px}
+  .size-card{padding:24px 18px}
+  .find-row{flex-direction:column;gap:4px}
+  .find-row .lab{flex-basis:auto}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============================ NAV ============================ -->
+<header>
+<nav class="nav" id="nav" aria-label="Primary">
+  <a class="brand" href="#top">Mo ʻ<span class="o">O</span>no Hawaiʻi</a>
+  <div class="nav-links" id="navlinks">
+    <a href="#bowl">The Bowl</a>
+    <a href="#toppings">Toppings</a>
+    <a href="#story">Our Story</a>
+    <a href="#find">Find Us</a>
+    <a class="btn" href="https://moonotogo.square.site/" target="_blank" rel="noopener">Order online</a>
+  </div>
+  <button class="hamburger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="navlinks">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+</header>
+
+<main id="main">
+<span id="top"></span>
+
+<!-- ============================ HERO ============================ -->
+<section class="hero" aria-labelledby="hero-h">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="kicker hero-eyebrow">Kahului&nbsp;·&nbsp;Across from Costco</span>
+      <h1 id="hero-h">Piled<br>past the <span class="pop">rim.</span></h1>
+      <svg class="swash" viewBox="0 0 120 14" aria-hidden="true"><path d="M3 10 C 30 2, 90 2, 117 9"/></svg>
+      <p class="hero-sub">Real açaí blended thick — never watery — then piled with strawberry, banana, pineapple, granola, honey, and whatever your ʻono calls for. Built to order in our truck.</p>
+      <div class="hero-cta">
+        <a class="btn btn--mango" href="https://moonotogo.square.site/" target="_blank" rel="noopener">Order your bowl <span class="arr" aria-hidden="true">→</span></a>
+        <a class="textlink" href="#bowl">See the menu</a>
+      </div>
+      <div class="hero-facts" aria-label="At a glance">
+        <span><i class="dot" aria-hidden="true"></i>From $5</span>
+        <span><i class="dot" aria-hidden="true"></i>Mon–Fri 10–8</span>
+        <span><i class="dot" aria-hidden="true"></i>Vegan-friendly</span>
+        <span><i class="dot" aria-hidden="true"></i>336+ reviews</span>
+      </div>
+    </div>
+
+    <div class="hero-photo">
+      <!-- Real photo (Mo ʻOno IG / owner-supplied, 2026-06-19). Top-down crave shot. -->
+      <figure class="frame">
+        <img src="images/hero-bowl.webp" alt="Top-down Mo ʻOno açaí bowl piled with fresh mango, strawberry and banana" fetchpriority="high" decoding="async">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ THE BOWL / SIZES ============================ -->
+<section id="bowl" aria-labelledby="bowl-h">
+  <div class="wrap">
+    <div class="sec-head menu-intro reveal">
+      <span class="kicker">The Mo ʻOno bowl</span>
+      <h2 id="bowl-h">Start with the bowl.<br>Make it yours.</h2>
+      <svg class="swash" viewBox="0 0 120 14" aria-hidden="true"><path d="M3 10 C 30 2, 90 2, 117 9"/></svg>
+      <p>Every bowl starts the same way: açaí blended thick, then strawberry, banana, pineapple, coconut, almonds, granola, and honey. Then you build. Pick your size — the rest is up to your ʻono.</p>
+    </div>
+
+    <!-- PRICES & SIZES confirmed from the truck's own menu board (owner photo, 2026-06-19):
+         Mini 8oz $5 · Small 12oz $8 · Medium 16oz $10 · Large 24oz $15. -->
+    <div class="sizes">
+      <article class="size-card reveal">
+        <svg class="rim" viewBox="0 0 60 9" aria-hidden="true"><path d="M3 6 C 18 1, 42 1, 57 6"/></svg>
+        <div class="oz">8 oz</div><div class="name">Mini</div>
+        <div class="price"><span>$</span>5</div>
+      </article>
+      <article class="size-card reveal">
+        <svg class="rim" viewBox="0 0 60 9" aria-hidden="true"><path d="M3 6 C 18 1, 42 1, 57 6"/></svg>
+        <div class="oz">12 oz</div><div class="name">Small</div>
+        <div class="price"><span>$</span>8</div>
+      </article>
+      <article class="size-card reveal">
+        <svg class="rim" viewBox="0 0 60 9" aria-hidden="true"><path d="M3 6 C 18 1, 42 1, 57 6"/></svg>
+        <div class="oz">16 oz</div><div class="name">Medium</div>
+        <div class="price"><span>$</span>10</div>
+      </article>
+      <article class="size-card reveal">
+        <svg class="rim" viewBox="0 0 60 9" aria-hidden="true"><path d="M3 6 C 18 1, 42 1, 57 6"/></svg>
+        <div class="oz">24 oz</div><div class="name">Large</div>
+        <div class="price"><span>$</span>15</div>
+      </article>
+    </div>
+
+    <div class="menu-note reveal">
+      <span class="pill">Standard toppings included</span>
+      <span class="pill">Premium toppings +$1 each</span>
+      <span>Vegan-friendly — skip the honey, butters, yogurt &amp; condensed milk.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TOPPINGS ============================ -->
+<section id="toppings" style="background:var(--surface)" aria-labelledby="top-h">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">To your ʻono</span>
+      <h2 id="top-h">The good stuff goes on top.</h2>
+      <svg class="swash" viewBox="0 0 120 14" aria-hidden="true"><path d="M3 10 C 30 2, 90 2, 117 9"/></svg>
+    </div>
+
+    <div class="top-grid">
+      <div class="top-cols reveal">
+        <div class="top-block">
+          <h3>In every bowl</h3>
+          <ul class="top-list">
+            <li>Thick-blended açaí</li>
+            <li>Strawberry, banana &amp; pineapple</li>
+            <li>Coconut &amp; almonds</li>
+            <li>Granola &amp; honey</li>
+          </ul>
+        </div>
+        <div class="top-block">
+          <h3>Premium · +$1</h3>
+          <!-- Confirmed from the truck's menu board (2026-06-19); 50¢ each on a Mini. -->
+          <ul class="top-list">
+            <li>Liliko'i butter <span class="local">★ local favorite</span></li>
+            <li>Blueberries</li>
+            <li>Papaya chunks</li>
+            <li>Peanut butter</li>
+            <li>Almond butter</li>
+            <li>Chocolate shavings</li>
+            <li>Greek yogurt <span class="local">+50¢</span></li>
+            <li>Condensed milk <span class="local">+$1</span></li>
+          </ul>
+        </div>
+        <p class="top-foot">★ Liliko'i butter is the local favorite — a house passion-fruit drizzle. Premium toppings are $1 each (50¢ on a Mini); a few contain dairy.</p>
+      </div>
+
+      <div class="top-photo reveal">
+        <!-- Real photo (owner-supplied, 2026-06-19). Close tactile topping detail. -->
+        <figure class="frame">
+          <img src="images/toppings.webp" alt="Close-up of a Mo ʻOno açaí bowl with sliced banana, chocolate shavings and a scoop of banana nice-cream" loading="lazy" decoding="async">
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ STORY ============================ -->
+<section class="story" id="story" aria-labelledby="story-h">
+  <svg class="story-rim" viewBox="0 0 1440 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 46 C 360 6, 1080 6, 1440 46 L1440 46 L0 46 Z" fill="currentColor"/></svg>
+  <div class="wrap story-grid">
+    <div class="story-photo reveal">
+      <!-- Real photo (owner-supplied, 2026-06-19): bowl on the pod tables, the yellow truck behind.
+           IDEAL UPGRADE: a portrait of founders Toni & Kuʻulei at the window if they have one. -->
+      <figure class="frame">
+        <img src="images/truck-bowl.webp" alt="A Mo ʻOno açaí bowl on the picnic tables with the bright yellow Mo ʻOno truck behind it" loading="lazy" decoding="async">
+      </figure>
+    </div>
+
+    <div class="story-copy reveal">
+      <span class="kicker">Two Maui women · one truck</span>
+      <h2 id="story-h">It started as a craving Maui couldn't satisfy.</h2>
+      <p>Toni and Kuʻulei grew up here and graduated from Kamehameha Schools Maui. In high school they noticed açaí bowls were everywhere on Oʻahu — and almost nowhere at home. So they made their own: blending bowls for friends and family through college, delivering them to cover the bills.</p>
+      <p>A five-by-ten trailer came first, built by family and outfitted by hand. When the banks said no — too young, too new — an OHA Mālama Loan said yes. The truck you order from today rolled in not long after.</p>
+      <p>Everything that can be local, is. The name says the rest.</p>
+      <p class="name-line">Mo ʻOno — made to everyone's ʻono.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FIND US ============================ -->
+<section class="find" id="find" aria-labelledby="find-h">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Across from Costco</span>
+    </div>
+    <div class="find-grid">
+      <div class="reveal">
+        <h2 id="find-h">Find the truck.</h2>
+        <svg class="swash" viewBox="0 0 120 14" aria-hidden="true"><path d="M3 10 C 30 2, 90 2, 117 9"/></svg>
+        <!-- Weekday hours confirmed; weekend hours vary by source, so we point to IG (owner's call, 2026-06-19). -->
+        <div class="find-rows">
+          <div class="find-row"><span class="lab">Where</span><span class="val"><a href="https://maps.google.com/?q=Mo+%27Ono+Hawaii+591+Haleakala+Hwy+Kahului" target="_blank" rel="noopener">591 Haleakala Hwy, Kahului, HI 96732</a></span></div>
+          <div class="find-row"><span class="lab">Hours</span><span class="val">Mon–Fri 10 AM – 8 PM&nbsp;·&nbsp;weekend hours vary — <a href="https://www.instagram.com/moonohawaii/" target="_blank" rel="noopener">check Instagram</a></span></div>
+          <div class="find-row"><span class="lab">Call</span><span class="val"><a href="tel:+18086330470">(808) 633-0470</a></span></div>
+          <div class="find-row"><span class="lab">Follow</span><span class="val"><a href="https://www.instagram.com/moonohawaii/" target="_blank" rel="noopener">@moonohawaii</a> on Instagram &amp; Facebook</span></div>
+        </div>
+        <div class="find-cta">
+          <a class="btn btn--mango" href="https://moonotogo.square.site/" target="_blank" rel="noopener">Order online <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn--ghost" href="https://maps.google.com/?q=Mo+%27Ono+Hawaii+591+Haleakala+Hwy+Kahului" target="_blank" rel="noopener">Get directions</a>
+        </div>
+      </div>
+
+      <div class="map reveal">
+        <!-- Real photo (owner-supplied, 2026-06-19): the truck on location at the pod. -->
+        <figure class="frame">
+          <img src="images/truck.webp" alt="The bright yellow Mo ʻOno Hawaiʻi food truck at the Haleakala Highway pod in Kahului" loading="lazy" decoding="async">
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a class="brand" href="#top">Mo ʻ<span class="o" style="color:var(--accent)">O</span>no Hawaiʻi</a>
+        <p>Made to everyone's ʻono.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h4>Visit</h4>
+          <p>591 Haleakala Hwy<br>Kahului, HI 96732</p>
+          <a href="https://maps.google.com/?q=Mo+%27Ono+Hawaii+591+Haleakala+Hwy+Kahului" target="_blank" rel="noopener">Get directions →</a>
+        </div>
+        <div class="foot-col">
+          <h4>Hours</h4>
+          <p>Mon–Fri&nbsp;&nbsp;10–8<br>Weekends&nbsp;&nbsp;vary<br>Check IG for hours</p>
+        </div>
+        <div class="foot-col">
+          <h4>Order &amp; Follow</h4>
+          <a href="https://moonotogo.square.site/" target="_blank" rel="noopener">Order online</a>
+          <a href="https://www.instagram.com/moonohawaii/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.facebook.com/moonohawaii/" target="_blank" rel="noopener">Facebook</a>
+          <a href="tel:+18086330470">(808) 633-0470</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Mo ʻOno Hawaiʻi · Kahului, Maui</span>
+      <span>Website concept by <a href="https://frontlinewebdesign.tech" target="_blank" rel="noopener">Frontline Web Designs</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* nav: scrolled state + mobile toggle */
+(function(){
+  var nav=document.getElementById('nav');
+  var burger=document.getElementById('burger');
+  var links=document.getElementById('navlinks');
+  var onScroll=function(){nav.classList.toggle('scrolled',window.scrollY>24)};
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+
+  burger.addEventListener('click',function(){
+    var open=links.classList.toggle('open');
+    burger.setAttribute('aria-expanded',open?'true':'false');
+  });
+  links.addEventListener('click',function(e){
+    if(e.target.tagName==='A'){links.classList.remove('open');burger.setAttribute('aria-expanded','false');}
+  });
+})();
+
+/* one entrance per element via IntersectionObserver, with a scroll/initial
+   fallback so content is never left hidden if IO misfires. reduced-motion aware. */
+(function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els=[].slice.call(document.querySelectorAll('.reveal'));
+  if(reduce){els.forEach(function(el){el.classList.add('in')});return;}
+  function inView(el){var r=el.getBoundingClientRect();return r.top<window.innerHeight*0.9 && r.bottom>0;}
+  function check(){els.forEach(function(el){if(!el.classList.contains('in')&&inView(el))el.classList.add('in');});}
+  if('IntersectionObserver'in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
+    },{threshold:.16,rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(el){io.observe(el)});
+  }else{els.forEach(function(el){el.classList.add('in')});}
+  check();
+  window.addEventListener('scroll',check,{passive:true});
+  window.addEventListener('load',check);
+})();
+</script>
+</body>
+</html>
