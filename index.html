@@ -359,7 +359,6 @@ footer{background:var(--primary);color:var(--bg);padding-block:64px 40px}
 /* ============================ WOW LAYER ============================ */
 @keyframes riseIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-@keyframes scrollx{to{transform:translateX(-50%)}}
 
 /* hero: line-by-line + staggered copy entrance, photo rises then floats */
 .hero h1 .ln{display:block}
@@ -375,30 +374,34 @@ footer{background:var(--primary);color:var(--bg);padding-block:64px 40px}
 .js .hero-photo{opacity:0;animation:riseIn 1s cubic-bezier(.16,1,.3,1) .25s both}
 .hero-photo .frame{animation:floaty 7s ease-in-out 1.3s infinite}
 
-/* marquee band */
+/* marquee band — JS clones .marquee-set until the track exceeds the viewport,
+   so the translateX loop never reveals a gap (was glitching on wide screens) */
 .marquee{background:var(--primary);color:var(--bg);overflow:hidden;padding:16px 0;border-block:1px solid rgba(255,255,255,.10)}
-.marquee-track{display:flex;align-items:center;width:max-content;white-space:nowrap;animation:scrollx 34s linear infinite;font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(1.4rem,2.8vw,2.3rem)}
-.marquee-track span{padding:0 30px}
-.marquee-track i{color:var(--accent-soft);font-style:normal;font-size:.66em;transform:translateY(-3px)}
+.marquee-track{display:flex;align-items:center;width:max-content;white-space:nowrap;will-change:transform;font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(1.4rem,2.8vw,2.3rem)}
+.marquee-track.run{animation:marq var(--dur,30s) linear infinite}
+.marquee-set{display:flex;align-items:center;flex:0 0 auto}
+.marquee-set span{padding:0 30px}
+.marquee-set i{color:var(--accent-soft);font-style:normal;font-size:.66em;transform:translateY(-3px)}
 .marquee:hover .marquee-track{animation-play-state:paused}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(calc(-1 * var(--setw,0px)))}}
 
 /* the spread — two rows auto-scrolling opposite ways */
 .spread{padding-block:var(--section);overflow:hidden}
 .spread .wrap{margin-bottom:clamp(28px,4vw,46px)}
 .spread h2{font-size:clamp(2.1rem,5vw,3.5rem);margin-top:14px}
 .gallery{display:flex;flex-direction:column;gap:clamp(12px,1.6vw,18px)}
-.g-row{display:flex;gap:clamp(12px,1.6vw,18px);width:max-content}
+.g-row{display:flex;width:max-content;will-change:transform}
+.g-set{display:flex;gap:clamp(12px,1.6vw,18px);flex:0 0 auto;padding-right:clamp(12px,1.6vw,18px)}
 .g-row img{height:clamp(168px,24vw,288px);width:auto;flex:0 0 auto;border-radius:16px;object-fit:cover;box-shadow:var(--shadow-sm);border:1px solid var(--line)}
-.g-row--a{animation:scrollx 46s linear infinite}
-.g-row--b{animation:scrollx 58s linear infinite reverse}
+.g-row.run{animation:marq var(--dur,40s) linear infinite}
+.g-row--b.run{animation-direction:reverse}
 .gallery:hover .g-row{animation-play-state:paused}
 
 @media (prefers-reduced-motion: reduce){
   .js .hero .hero-copy > :not(h1),.js .hero h1 .ln,.js .hero-photo{opacity:1;animation:none}
   .hero-photo .frame{animation:none}
   .marquee-track{animation:none}
-  .g-row{animation:none;flex-wrap:wrap;width:auto;justify-content:center}
-  .g-row img[aria-hidden="true"]{display:none}
+  .g-row,.g-set{animation:none;flex-wrap:wrap;width:auto;justify-content:center;padding-right:0}
 }
 
 /* ============================ RESPONSIVE ============================ */
@@ -511,8 +514,9 @@ footer{background:var(--primary);color:var(--bg);padding-block:64px 40px}
 <!-- ============================ MARQUEE ============================ -->
 <div class="marquee" aria-hidden="true">
   <div class="marquee-track">
-    <span>Piled past the rim</span><i>✺</i><span>Made to your ʻono</span><i>✺</i><span>Açaí done right</span><i>✺</i><span>Across from Costco</span><i>✺</i>
-    <span>Piled past the rim</span><i>✺</i><span>Made to your ʻono</span><i>✺</i><span>Açaí done right</span><i>✺</i><span>Across from Costco</span><i>✺</i>
+    <div class="marquee-set">
+      <span>Piled past the rim</span><i>✺</i><span>Made to your ʻono</span><i>✺</i><span>Açaí done right</span><i>✺</i><span>Across from Costco</span><i>✺</i>
+    </div>
   </div>
 </div>
 
@@ -623,28 +627,22 @@ footer{background:var(--primary);color:var(--bg);padding-block:64px 40px}
   </div>
   <div class="gallery">
     <div class="g-row g-row--a">
-      <img src="images/spread-1.webp" alt="Açaí bowls topped with blueberries and strawberries" loading="lazy" decoding="async">
-      <img src="images/bowls-gardenia.webp" alt="Four açaí bowls arranged with white gardenia flowers" loading="lazy" decoding="async">
-      <img src="images/spread-3.webp" alt="Açaí bowls with liliko'i drizzle beside a protea flower" loading="lazy" decoding="async">
-      <img src="images/spread-2.webp" alt="Two açaí bowls with liliko'i butter and banana" loading="lazy" decoding="async">
-      <img src="images/toppings.webp" alt="Açaí bowl with banana and chocolate shavings" loading="lazy" decoding="async">
-      <img src="images/spread-1.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-      <img src="images/bowls-gardenia.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-      <img src="images/spread-3.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-      <img src="images/spread-2.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-      <img src="images/toppings.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <div class="g-set">
+        <img src="images/spread-1.webp" alt="Açaí bowls topped with blueberries and strawberries" loading="lazy" decoding="async">
+        <img src="images/bowls-gardenia.webp" alt="Four açaí bowls arranged with white gardenia flowers" loading="lazy" decoding="async">
+        <img src="images/spread-3.webp" alt="Açaí bowls with liliko'i drizzle beside a protea flower" loading="lazy" decoding="async">
+        <img src="images/spread-2.webp" alt="Two açaí bowls with liliko'i butter and banana" loading="lazy" decoding="async">
+        <img src="images/toppings.webp" alt="Açaí bowl with banana and chocolate shavings" loading="lazy" decoding="async">
+      </div>
     </div>
     <div class="g-row g-row--b">
-      <img src="images/spread-2.webp" alt="Two açaí bowls with liliko'i butter and banana" loading="lazy" decoding="async">
-      <img src="images/lifestyle-mural.webp" alt="Hand holding an açaí bowl in front of a Kahului mural" loading="lazy" decoding="async">
-      <img src="images/spread-1.webp" alt="Açaí bowls with blueberries and strawberries" loading="lazy" decoding="async">
-      <img src="images/bowls-gardenia.webp" alt="Four açaí bowls with gardenias" loading="lazy" decoding="async">
-      <img src="images/spread-3.webp" alt="Açaí bowls beside a protea flower" loading="lazy" decoding="async">
-      <img src="images/spread-2.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-      <img src="images/lifestyle-mural.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-      <img src="images/spread-1.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-      <img src="images/bowls-gardenia.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
-      <img src="images/spread-3.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <div class="g-set">
+        <img src="images/spread-2.webp" alt="Two açaí bowls with liliko'i butter and banana" loading="lazy" decoding="async">
+        <img src="images/lifestyle-mural.webp" alt="Hand holding an açaí bowl in front of a Kahului mural" loading="lazy" decoding="async">
+        <img src="images/spread-1.webp" alt="Açaí bowls with blueberries and strawberries" loading="lazy" decoding="async">
+        <img src="images/bowls-gardenia.webp" alt="Four açaí bowls with gardenias" loading="lazy" decoding="async">
+        <img src="images/spread-3.webp" alt="Açaí bowls beside a protea flower" loading="lazy" decoding="async">
+      </div>
     </div>
   </div>
 </section>
@@ -779,6 +777,48 @@ footer{background:var(--primary);color:var(--bg);padding-block:64px 40px}
   check();
   window.addEventListener('scroll',check,{passive:true});
   window.addEventListener('load',check);
+})();
+
+/* seamless marquees: clone each strip until the track is wider than the viewport,
+   so the translateX loop never reveals a gap. Re-runs on resize / font + image load.
+   Skipped under prefers-reduced-motion (CSS shows the strip statically / wrapped). */
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  function setupLoop(track, setSel, speed){
+    if(!track) return;
+    var set=track.querySelector(setSel);
+    if(!set) return;
+    function build(){
+      var clones=track.querySelectorAll('[data-mclone]');
+      for(var i=0;i<clones.length;i++) clones[i].remove();
+      var setW=set.getBoundingClientRect().width;
+      if(setW<2) return;
+      var need=Math.min(20, Math.ceil(window.innerWidth/setW)+2);
+      for(var j=1;j<need;j++){
+        var c=set.cloneNode(true);
+        c.setAttribute('data-mclone','');
+        c.setAttribute('aria-hidden','true');
+        var im=c.querySelectorAll('img');
+        for(var k=0;k<im.length;k++) im[k].setAttribute('alt','');
+        track.appendChild(c);
+      }
+      track.style.setProperty('--setw', setW+'px');
+      track.style.animationDuration=Math.max(8, setW/speed).toFixed(1)+'s';
+      track.classList.add('run');
+    }
+    var t=0;
+    function schedule(){ clearTimeout(t); t=setTimeout(build, 120); }
+    if('ResizeObserver' in window){ new ResizeObserver(schedule).observe(set); }
+    window.addEventListener('resize', schedule);
+    window.addEventListener('load', schedule);
+    if(document.fonts && document.fonts.ready){ document.fonts.ready.then(schedule); }
+    build();
+  }
+  setupLoop(document.querySelector('.marquee-track'), '.marquee-set', 70);
+  var rows=document.querySelectorAll('.g-row');
+  for(var r=0;r<rows.length;r++){
+    setupLoop(rows[r], '.g-set', rows[r].classList.contains('g-row--b') ? 38 : 46);
+  }
 })();
 </script>
 </body>
