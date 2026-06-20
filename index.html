@@ -19,6 +19,7 @@
 <meta name="twitter:description" content="Piled past the rim. Custom açaí bowls made to everyone's ʻono — Kahului, Maui." />
 <meta name="twitter:image" content="images/hero-bowl.webp" />
 <meta name="theme-color" content="#4C1D33" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><rect width='48' height='48' rx='11' fill='%23FBF4E9'/><circle cx='24' cy='24' r='14.5' fill='none' stroke='%234C1D33' stroke-width='2.2'/><circle cx='24' cy='24' r='11.3' fill='%234C1D33'/><path d='M15 22 C 18 17.5 21 23 24 19 S 30 17.5 33 22' fill='none' stroke='%23E2641E' stroke-width='2.3' stroke-linecap='round'/><circle cx='19.5' cy='27' r='1.9' fill='%23E2641E'/><circle cx='24' cy='29' r='2.2' fill='%23E2641E'/><circle cx='28.5' cy='27' r='1.9' fill='%23E2641E'/></svg>" />
 <!-- progressive enhancement: only hide-then-reveal when JS is alive; no-JS shows all content -->
 <script>document.documentElement.classList.add('js');</script>
 
@@ -160,11 +161,9 @@ a:focus-visible,.btn:focus-visible,button:focus-visible{
   transition:background .3s ease, box-shadow .3s ease, padding .3s ease;
 }
 .nav.scrolled{background:rgba(251,244,233,.92);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line)}
-.brand{
-  font-family:var(--serif);font-weight:600;font-size:1.34rem;
-  color:var(--primary);text-decoration:none;letter-spacing:-.01em;line-height:1;
-}
-.brand .o{color:var(--accent-ink)}
+.brand{display:inline-flex;align-items:center;gap:11px;text-decoration:none;line-height:1}
+.brand .logo-mark{width:34px;height:34px;flex:0 0 auto;color:var(--primary)}
+.brand .brand-word{font-family:var(--serif);font-weight:600;font-size:1.32rem;color:var(--primary);letter-spacing:-.01em}
 .nav-links{display:flex;align-items:center;gap:30px}
 .nav-links a:not(.btn){
   text-decoration:none;font-weight:500;font-size:.98rem;color:var(--text);
@@ -316,7 +315,10 @@ section{padding-block:var(--section)}
 /* ============================ FOOTER ============================ */
 footer{background:var(--primary);color:var(--bg);padding-block:64px 40px}
 .foot-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:30px;align-items:flex-start}
-.foot-brand .brand{color:var(--bg);font-size:1.7rem}
+.foot-logo{display:inline-flex;flex-direction:column;align-items:flex-start;gap:12px;text-decoration:none}
+.foot-logo .logo-mark{width:50px;height:50px;color:var(--bg)}
+.foot-logo .fw{font-family:var(--serif);font-weight:600;font-size:1.7rem;color:var(--bg);line-height:1}
+.foot-logo .ft{font-family:var(--sans);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-soft)}
 .foot-brand p{margin-top:12px;color:#e7cdbf;font-family:var(--serif);font-style:italic;font-size:1.18rem}
 .foot-cols{display:flex;flex-wrap:wrap;gap:46px}
 .foot-col h4{font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-soft);margin:0 0 14px}
@@ -430,16 +432,33 @@ footer{background:var(--primary);color:var(--bg);padding-block:64px 40px}
   .size-card{padding:24px 18px}
   .find-row{flex-direction:column;gap:4px}
   .find-row .lab{flex-basis:auto}
+  .brand .brand-word{font-size:1.12rem}
+  .brand .logo-mark{width:30px;height:30px}
 }
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
+<!-- LOGO — top-down açaí bowl mark; one symbol, recolors via currentColor (nav=mulberry, footer=cream) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="bowl-logo" viewBox="0 0 48 48">
+    <circle cx="24" cy="24" r="20.2" fill="none" stroke="currentColor" stroke-width="2.4"/>
+    <circle cx="24" cy="24" r="16" fill="currentColor"/>
+    <path d="M11.5 21 C 17 14.5, 21 24, 24.5 18 S 33 15, 37 21.5" fill="none" stroke="#E2641E" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="17.5" cy="28.5" r="2.5" fill="#E2641E"/>
+    <circle cx="24" cy="31.5" r="3" fill="#E2641E"/>
+    <circle cx="30.5" cy="28.5" r="2.5" fill="#E2641E"/>
+  </symbol>
+</svg>
+
 <!-- ============================ NAV ============================ -->
 <header>
 <nav class="nav" id="nav" aria-label="Primary">
-  <a class="brand" href="#top">Mo ʻ<span class="o">O</span>no Hawaiʻi</a>
+  <a class="brand" href="#top" aria-label="Mo ʻOno Hawaiʻi — açaí bowls, Kahului">
+    <svg class="logo-mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#bowl-logo"/></svg>
+    <span class="brand-word">Mo ʻOno Hawaiʻi</span>
+  </a>
   <div class="nav-links" id="navlinks">
     <a href="#bowl">The Bowl</a>
     <a href="#toppings">Toppings</a>
@@ -680,7 +699,11 @@ footer{background:var(--primary);color:var(--bg);padding-block:64px 40px}
   <div class="wrap">
     <div class="foot-top">
       <div class="foot-brand">
-        <a class="brand" href="#top">Mo ʻ<span class="o" style="color:var(--accent)">O</span>no Hawaiʻi</a>
+        <a class="foot-logo" href="#top" aria-label="Mo ʻOno Hawaiʻi">
+          <svg class="logo-mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#bowl-logo"/></svg>
+          <span class="fw">Mo ʻOno Hawaiʻi</span>
+          <span class="ft">Açaí Bowls · Kahului, Maui</span>
+        </a>
         <p>Made to everyone's ʻono.</p>
       </div>
       <div class="foot-cols">
