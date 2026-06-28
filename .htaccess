@@ -1,0 +1,5 @@
+# Pitch demo - keep this proof site out of search indexes.
+# Remove this file (and the <meta name="robots"> in index.html) once the client signs on.
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>
