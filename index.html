@@ -267,8 +267,6 @@ section{padding-block:var(--section)}
 .g-item{opacity:0;transform:translateY(-9px) scale(.4);transform-box:fill-box;transform-origin:center;
   transition:opacity .5s ease, transform .55s cubic-bezier(.34,1.56,.64,1)}
 .g-item.on{opacity:1;transform:none}
-.g-item.on > *{animation:garnishPop .5s cubic-bezier(.34,1.56,.64,1) both}
-@keyframes garnishPop{from{transform:scale(.2)}to{transform:scale(1)}}
 
 /* --- right: controls --- */
 .bowl-controls{display:grid;gap:clamp(20px,2.4vw,30px)}
@@ -629,52 +627,71 @@ footer{background:var(--primary);color:var(--bg);padding-block:64px 40px}
           <ellipse cx="200" cy="142" rx="156" ry="52" fill="#EFE0C8"/>
           <ellipse cx="200" cy="140" rx="150" ry="47" fill="url(#acai)"/>
           <ellipse cx="200" cy="140" rx="150" ry="47" fill="none" stroke="#371423" stroke-width="1.5" opacity=".45"/>
-          <!-- base garnish (always on) -->
+          <!-- base garnish (always on): honey drizzle, banana slices, strawberry slices, granola, coconut -->
           <g>
-            <path d="M120 138 q 20 -13 40 0 t 40 0 t 40 0 t 40 0" fill="none" stroke="#E4A62C" stroke-width="3.4" stroke-linecap="round" opacity=".9"/>
-            <g fill="#F3E4B0" stroke="#E3CB84" stroke-width="1.5">
-              <ellipse cx="150" cy="126" rx="15" ry="9" transform="rotate(-12 150 126)"/>
-              <ellipse cx="243" cy="150" rx="15" ry="9" transform="rotate(9 243 150)"/>
-              <ellipse cx="196" cy="112" rx="14" ry="8.5" transform="rotate(-4 196 112)"/>
+            <path d="M118 137 q 20 -12 40 0 t 40 0 t 40 0 t 40 0" fill="none" stroke="#E9AE33" stroke-width="3" stroke-linecap="round" opacity=".82"/>
+            <!-- banana slices: pale disc, flesh ring, 3 seeds -->
+            <g stroke="#E2C979" stroke-width="1.3">
+              <g transform="translate(150 126)"><circle r="10" fill="#F6E7A6"/><circle r="6.1" fill="#FCF3CB" stroke="none"/><g fill="#8a6630" stroke="none"><circle cx="-1.7" cy="1.5" r="1"/><circle cx="1.9" cy="1.2" r="1"/><circle cx="0" cy="-1.9" r="1"/></g></g>
+              <g transform="translate(246 151)"><circle r="9.4" fill="#F6E7A6"/><circle r="5.7" fill="#FCF3CB" stroke="none"/><g fill="#8a6630" stroke="none"><circle cx="-1.6" cy="1.4" r=".9"/><circle cx="1.8" cy="1.1" r=".9"/><circle cx="0" cy="-1.8" r=".9"/></g></g>
             </g>
-            <g fill="#D23B2C">
-              <path d="M110 150 c 10 -14 30 -14 40 0 c -12 12 -28 12 -40 0 z"/>
-              <path d="M250 121 c 9 -12 26 -12 34 0 c -10 10 -24 10 -34 0 z"/>
+            <!-- strawberry slices: red rim, pale radiating flesh, seeds -->
+            <g stroke="none">
+              <g transform="translate(114 149) rotate(-8)"><circle r="10.5" fill="#E23A2B"/><path d="M0 -8.5 V8.5 M-7.4 -4.2 L7.4 4.2 M-7.4 4.2 L7.4 -4.2" stroke="#F4B9AF" stroke-width="4.4" stroke-linecap="round"/><circle r="3" fill="#F7CCC3"/><g fill="#FBE7BE"><circle cx="0" cy="-6.6" r=".85"/><circle cx="5.6" cy="-2.4" r=".85"/><circle cx="4" cy="5.2" r=".85"/><circle cx="-4" cy="5.2" r=".85"/><circle cx="-5.6" cy="-2.4" r=".85"/></g></g>
+              <g transform="translate(258 120) rotate(12)"><circle r="9" fill="#E23A2B"/><path d="M0 -7.2 V7.2 M-6.3 -3.6 L6.3 3.6 M-6.3 3.6 L6.3 -3.6" stroke="#F4B9AF" stroke-width="4" stroke-linecap="round"/><circle r="2.6" fill="#F7CCC3"/></g>
             </g>
-            <g fill="#C08A4B">
-              <rect x="175" y="150" width="12" height="9" rx="3.5" transform="rotate(18 181 154)"/>
-              <rect x="215" y="120" width="11" height="8" rx="3.5" transform="rotate(-14 220 124)"/>
-              <rect x="128" y="118" width="11" height="8" rx="3.5" transform="rotate(24 133 122)"/>
-              <rect x="268" y="146" width="11" height="8" rx="3.5" transform="rotate(-8 273 150)"/>
+            <!-- granola clusters -->
+            <g fill="#C1904E" stroke="#A9793C" stroke-width=".7">
+              <g transform="translate(183 153)"><circle cx="-4" cy="0" r="3.9"/><circle cx="2" cy="-3" r="3.3"/><circle cx="3" cy="3" r="3.5"/></g>
+              <g transform="translate(129 121)"><circle cx="-3" cy="1" r="3.5"/><circle cx="2" cy="-2" r="3.1"/><circle cx="3" cy="3" r="2.9"/></g>
+              <g transform="translate(273 148)"><circle cx="-3" cy="0" r="3.3"/><circle cx="2" cy="-3" r="2.9"/><circle cx="2" cy="3" r="3.1"/></g>
             </g>
-            <g fill="#F1E7D2">
-              <ellipse cx="165" cy="159" rx="8" ry="3" transform="rotate(28 165 159)"/>
-              <ellipse cx="225" cy="132" rx="8" ry="3" transform="rotate(-20 225 132)"/>
+            <!-- coconut shavings -->
+            <g fill="none" stroke="#F2EAD8" stroke-width="2.8" stroke-linecap="round">
+              <path d="M160 161 q 8 -5 15 -1"/><path d="M221 133 q 7 5 14 1"/>
             </g>
           </g>
-          <!-- premium garnish groups (toggle) -->
+
+          <!-- premium garnish groups (toggle) - each drawn to read as the real topping -->
+          <!-- liliko'i (passion fruit) butter: gold drizzle + a seedy passion-fruit half -->
           <g class="g-item" id="g-lilikoi">
-            <path d="M112 128 q 22 -16 44 2 t 44 2 t 44 2" fill="none" stroke="#F0B429" stroke-width="4" stroke-linecap="round"/>
-            <circle cx="150" cy="120" r="2" fill="#5a3b12"/><circle cx="200" cy="124" r="2" fill="#5a3b12"/><circle cx="250" cy="129" r="2" fill="#5a3b12"/>
+            <path d="M112 128 q 22 -14 44 3 t 44 3 t 44 3" fill="none" stroke="#F0B429" stroke-width="3.4" stroke-linecap="round"/>
+            <g transform="translate(205 116)"><ellipse rx="12" ry="10" fill="#5f3350"/><ellipse rx="8.4" ry="6.7" fill="#F4C22E"/><g fill="#39240f"><circle cx="-3" cy="-1" r="1.3"/><circle cx="2" cy="-2.2" r="1.3"/><circle cx="0" cy="2" r="1.3"/><circle cx="4.2" cy="1.8" r="1.1"/><circle cx="-4.2" cy="2.4" r="1.1"/></g></g>
           </g>
-          <g class="g-item" id="g-blueberry" fill="#41579c" stroke="#2c3d78" stroke-width="1.2">
-            <circle cx="140" cy="150" r="8"/><circle cx="232" cy="120" r="8"/><circle cx="270" cy="140" r="7.5"/><circle cx="185" cy="159" r="7.5"/>
+          <!-- blueberries: sphere, highlight, dark calyx crown -->
+          <g class="g-item" id="g-blueberry">
+            <g transform="translate(140 150)"><circle r="8" fill="#42568f" stroke="#2a3768" stroke-width="1.1"/><circle cx="-2.6" cy="-2.6" r="1.7" fill="#8f9dc9" opacity=".8"/><g stroke="#223056" stroke-width=".95" stroke-linecap="round"><path d="M0 -1 v-2.4 M0 -1 l2 -1.4 M0 -1 l-2 -1.4 M0 -1 l1.4 1.6 M0 -1 l-1.4 1.6"/></g></g>
+            <g transform="translate(232 121)"><circle r="8" fill="#42568f" stroke="#2a3768" stroke-width="1.1"/><circle cx="-2.6" cy="-2.6" r="1.7" fill="#8f9dc9" opacity=".8"/><g stroke="#223056" stroke-width=".95" stroke-linecap="round"><path d="M0 -1 v-2.4 M0 -1 l2 -1.4 M0 -1 l-2 -1.4 M0 -1 l1.4 1.6 M0 -1 l-1.4 1.6"/></g></g>
+            <g transform="translate(271 141)"><circle r="7.4" fill="#42568f" stroke="#2a3768" stroke-width="1.1"/><circle cx="-2.4" cy="-2.4" r="1.5" fill="#8f9dc9" opacity=".8"/><g stroke="#223056" stroke-width=".9" stroke-linecap="round"><path d="M0 -1 v-2.2 M0 -1 l1.8 -1.2 M0 -1 l-1.8 -1.2 M0 -1 l1.2 1.5 M0 -1 l-1.2 1.5"/></g></g>
+            <g transform="translate(184 159)"><circle r="7.4" fill="#42568f" stroke="#2a3768" stroke-width="1.1"/><circle cx="-2.4" cy="-2.4" r="1.5" fill="#8f9dc9" opacity=".8"/></g>
           </g>
-          <g class="g-item" id="g-papaya" fill="#F08A3C">
-            <path d="M150 106 l 16 5 l -6 15 l -15 -6 z"/><path d="M255 148 l 15 6 l -7 14 l -14 -7 z"/>
+          <!-- papaya: 3D diced cubes -->
+          <g class="g-item" id="g-papaya">
+            <g transform="translate(150 107)"><path d="M0 0 l7 -3 l7 3 l0 8 l-7 3 l-7 -3 z" fill="#E07C2E"/><path d="M0 0 l7 -3 l7 3 l-7 3 z" fill="#F7A85C"/><path d="M0 0 l7 3 l0 8 l-7 -3 z" fill="#EF8A3A"/></g>
+            <g transform="translate(256 149)"><path d="M0 0 l6 -2.6 l6 2.6 l0 7 l-6 2.6 l-6 -2.6 z" fill="#E07C2E"/><path d="M0 0 l6 -2.6 l6 2.6 l-6 2.6 z" fill="#F7A85C"/><path d="M0 0 l6 2.6 l0 7 l-6 -2.6 z" fill="#EF8A3A"/></g>
           </g>
-          <g class="g-item" id="g-peanut" fill="#C4863F"><ellipse cx="126" cy="138" rx="16" ry="11"/></g>
-          <g class="g-item" id="g-almond" fill="#D9B583"><ellipse cx="274" cy="125" rx="15" ry="10"/></g>
-          <g class="g-item" id="g-choc" fill="#43281A">
-            <rect x="200" y="112" width="20" height="6" rx="3" transform="rotate(22 210 115)"/>
-            <rect x="168" y="140" width="18" height="6" rx="3" transform="rotate(-16 177 143)"/>
-            <rect x="236" y="147" width="18" height="6" rx="3" transform="rotate(10 245 150)"/>
+          <!-- peanut butter: warm-brown drizzle -->
+          <g class="g-item" id="g-peanut">
+            <path d="M120 142 q 15 -10 30 2 t 30 1 q 12 6 24 -3" fill="none" stroke="#A9682F" stroke-width="4.4" stroke-linecap="round"/>
           </g>
-          <g class="g-item" id="g-yogurt" fill="#FBF6EC" stroke="#E6D8BE" stroke-width="1.4">
-            <path d="M176 116 c 0 -16 48 -16 48 0 c 0 12 -48 12 -48 0 z"/>
+          <!-- almond butter: lighter drizzle + a whole almond -->
+          <g class="g-item" id="g-almond">
+            <path d="M126 150 q 18 8 34 -2 t 34 -2" fill="none" stroke="#CBA36B" stroke-width="3.6" stroke-linecap="round"/>
+            <g transform="translate(268 122) rotate(22)"><path d="M-10 0 Q -6 -6 0 -6 Q 6 -6 10 0 Q 6 6 0 6 Q -6 6 -10 0 z" fill="#DEC49B" stroke="#C2A472" stroke-width="1"/><path d="M0 -4.6 Q 2 0 0 4.6" fill="none" stroke="#B8996A" stroke-width="1"/></g>
           </g>
+          <!-- chocolate shavings: dark curls -->
+          <g class="g-item" id="g-choc" fill="none" stroke="#3a2418" stroke-width="3" stroke-linecap="round">
+            <path d="M198 112 q 9 -6 17 -1 q -4 6 -12 5"/>
+            <path d="M166 142 q -6 -6 -14 -2 q 3 7 12 5"/>
+            <path d="M238 149 q 8 -5 15 1 q -3 6 -12 4"/>
+          </g>
+          <!-- greek yogurt: soft quenelle dollop -->
+          <g class="g-item" id="g-yogurt">
+            <g transform="translate(200 120)"><path d="M-22 4 Q -20 -10 0 -10 Q 22 -10 22 3 Q 12 9 0 8 Q -12 9 -22 4 z" fill="#FBF7EE" stroke="#E7DAC1" stroke-width="1.2"/><path d="M-14 -3 Q -6 -7 4 -6" fill="none" stroke="#ffffff" stroke-width="2" opacity=".7"/></g>
+          </g>
+          <!-- condensed milk: pale cream drizzle -->
           <g class="g-item" id="g-condensed">
-            <path d="M126 132 q 24 12 48 -2 t 48 -2 t 48 2" fill="none" stroke="#F3E3BE" stroke-width="4" stroke-linecap="round"/>
+            <path d="M124 132 q 24 11 48 -2 t 48 -2 t 48 2" fill="none" stroke="#F7EDD2" stroke-width="3.4" stroke-linecap="round"/>
           </g>
         </svg>
         <div class="bb-ticker" aria-hidden="true">Made to your ʻono</div>
