@@ -240,51 +240,102 @@ section{padding-block:var(--section)}
 
 /* ============================ MENU / SIZES ============================ */
 .menu-intro{display:grid;grid-template-columns:1fr;gap:8px}
-.sizes{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:56px;
-}
-.size-card{
-  position:relative;aspect-ratio:4/5;border-radius:var(--radius);overflow:hidden;
-  border:1px solid var(--line);background:var(--primary);
-  display:flex;align-items:flex-end;
-  transition:transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease;
-}
-.size-card .sc-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform .6s cubic-bezier(.16,1,.3,1)}
-.size-card::after{content:"";position:absolute;inset:0;z-index:1;
-  background:linear-gradient(to top, rgba(36,15,26,.93) 0%, rgba(36,15,26,.74) 30%, rgba(36,15,26,.28) 60%, rgba(36,15,26,.06) 100%)}
-.size-card .sc-body{position:relative;z-index:2;width:100%;padding:0 22px 20px}
-.size-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
-.size-card:hover .sc-photo{transform:scale(1.06)}
-.size-card .oz{font-weight:600;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(251,244,233,.82)}
-.size-card .name{font-family:var(--serif);font-size:1.55rem;color:var(--bg);margin-top:2px;line-height:1.02}
-.size-card .price{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,3.2vw,2.7rem);color:var(--bg);margin-top:11px;line-height:1;font-variation-settings:"opsz" 144}
-.size-card .price span{font-size:1.05rem;color:var(--accent-soft);vertical-align:.5em;margin-right:1px}
-.menu-note{
-  margin-top:32px;display:flex;flex-wrap:wrap;gap:10px 26px;align-items:center;
-  font-weight:500;color:var(--primary-soft);font-size:.98rem;
-}
-.menu-note .pill{
-  background:var(--bg);border:1.5px solid var(--line);border-radius:999px;
-  padding:8px 16px;font-size:.9rem;color:var(--primary);
-}
+/* (static sizes + toppings styles removed - replaced by the Build Your Bowl builder below) */
 
-/* ============================ TOPPINGS ============================ */
-.top-grid{
-  display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(32px,5vw,68px);
-  align-items:start;margin-top:54px;
+/* ============================ BUILD YOUR BOWL (interactive centerpiece) ============================ */
+.builder-sec{background:var(--surface);position:relative;overflow:hidden}
+.builder-sec::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background:radial-gradient(120% 80% at 88% 8%, rgba(226,100,30,.10), transparent 55%),
+             radial-gradient(90% 70% at 4% 100%, rgba(76,29,51,.08), transparent 55%)}
+.builder{position:relative;display:grid;grid-template-columns:1.02fr 1fr;gap:clamp(28px,4.4vw,64px);
+  align-items:center;margin-top:clamp(34px,4vw,54px)}
+
+/* --- left: the bowl visual --- */
+.bowl-stage{position:relative;display:grid;place-items:center;padding:14px;min-height:340px}
+.bowl-glow{position:absolute;width:78%;aspect-ratio:1;border-radius:50%;filter:blur(46px);opacity:.55;
+  background:radial-gradient(circle,rgba(226,100,30,.5),rgba(76,29,51,.28) 46%,transparent 70%);
+  animation:bowlPulse 8s ease-in-out infinite}
+@keyframes bowlPulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.08);opacity:.66}}
+.bowl-svg{position:relative;width:min(100%,460px);height:auto;overflow:visible;
+  transform:scale(var(--bowl-scale,.94));transform-origin:50% 62%;
+  transition:transform .7s cubic-bezier(.34,1.56,.64,1);
+  filter:drop-shadow(0 26px 40px rgba(76,29,51,.30))}
+.bb-ticker{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);
+  font-family:var(--serif);font-style:italic;font-size:1.02rem;color:var(--primary-soft);white-space:nowrap}
+
+/* garnish groups animate in when their chip is on */
+.g-item{opacity:0;transform:translateY(-9px) scale(.4);transform-box:fill-box;transform-origin:center;
+  transition:opacity .5s ease, transform .55s cubic-bezier(.34,1.56,.64,1)}
+.g-item.on{opacity:1;transform:none}
+.g-item.on > *{animation:garnishPop .5s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes garnishPop{from{transform:scale(.2)}to{transform:scale(1)}}
+
+/* --- right: controls --- */
+.bowl-controls{display:grid;gap:clamp(20px,2.4vw,30px)}
+.bowl-controls fieldset{border:0;margin:0;padding:0;min-width:0}
+.bowl-controls legend{padding:0;font-family:var(--sans);font-weight:700;font-size:.8rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--primary);margin-bottom:14px;display:flex;
+  flex-wrap:wrap;align-items:baseline;gap:8px}
+.bowl-controls legend span{font-weight:600;font-size:.68rem;letter-spacing:.08em;color:var(--accent-ink)}
+.bowl-controls legend span i{opacity:.5;font-style:normal}
+
+.size-opts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.size-opt{position:relative;display:grid;gap:2px;justify-items:center;padding:14px 6px;cursor:pointer;
+  background:var(--bg);border:1.5px solid var(--line);border-radius:var(--radius);color:var(--text);
+  font-family:var(--sans);transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease}
+.size-opt .so-oz{font-size:.66rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--primary-soft)}
+.size-opt .so-name{font-family:var(--serif);font-size:1.02rem;color:var(--primary);line-height:1}
+.size-opt .so-price{font-family:var(--serif);font-weight:600;font-size:1.34rem;color:var(--primary);line-height:1;margin-top:3px}
+.size-opt:hover{transform:translateY(-3px);box-shadow:var(--shadow-sm)}
+.size-opt:active{transform:translateY(0) scale(.98)}
+.size-opt[aria-checked="true"]{background:var(--primary);border-color:var(--primary);box-shadow:var(--shadow)}
+.size-opt[aria-checked="true"] .so-oz{color:var(--accent-soft)}
+.size-opt[aria-checked="true"] .so-name,.size-opt[aria-checked="true"] .so-price{color:var(--bg)}
+
+.bb-included{font-size:.96rem;color:var(--primary-soft);line-height:1.5}
+.bb-included .pill{display:inline-block;background:var(--primary);color:var(--bg);font-size:.66rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;padding:4px 11px;border-radius:999px;margin-right:8px;vertical-align:1px}
+
+.top-chips{display:flex;flex-wrap:wrap;gap:9px}
+.top-chip{display:inline-flex;align-items:center;gap:7px;cursor:pointer;
+  background:var(--bg);border:1.5px solid var(--line);border-radius:999px;padding:9px 16px;
+  font-family:var(--sans);font-weight:600;font-size:.92rem;color:var(--text);
+  transition:transform .18s ease, border-color .2s ease, background .2s ease, color .2s ease}
+.top-chip .dot{width:11px;height:11px;border-radius:50%;background:var(--tc,#c9a);flex:none;box-shadow:0 0 0 2px rgba(255,255,255,.5) inset}
+.top-chip .star{color:var(--accent-ink);font-size:.82em}
+.top-chip:hover{transform:translateY(-2px);border-color:var(--accent-soft)}
+.top-chip:active{transform:scale(.96)}
+.top-chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.top-chip[aria-pressed="true"] .star{color:#fff}
+.top-chip[aria-pressed="true"] .dot{box-shadow:0 0 0 2px rgba(255,255,255,.9) inset}
+.top-chip[aria-pressed="true"]::after{content:"✓";font-size:.82em;font-weight:800;margin-left:1px}
+
+.bb-checkout{display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:2px;
+  padding-top:22px;border-top:1.5px solid var(--line)}
+.bb-total{display:flex;flex-direction:column;line-height:1}
+.bb-total-lab{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--primary-soft)}
+.bb-total-val{font-family:var(--serif);font-weight:600;font-size:clamp(2.3rem,4vw,3rem);color:var(--primary);
+  font-variation-settings:"opsz" 144;margin-top:3px}
+.bb-total-val.bump{animation:totalBump .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes totalBump{0%{transform:scale(1)}40%{transform:scale(1.14);color:var(--accent-ink)}100%{transform:scale(1)}}
+.bb-checkout .btn{margin-left:auto}
+.bb-vegan{font-size:.86rem;color:var(--primary-soft)}
+
+/* focus-visible for every builder control (a11y) */
+.size-opt:focus-visible,.top-chip:focus-visible,.bb-checkout .btn:focus-visible{
+  outline:3px solid var(--accent-ink);outline-offset:3px}
+
+@media (max-width:820px){
+  .builder{grid-template-columns:1fr;gap:8px}
+  .bowl-stage{min-height:290px;order:-1}
+  .bowl-svg{width:min(84%,360px)}
+  .bb-checkout .btn{margin-left:0;width:100%;justify-content:center}
 }
-.top-cols{display:grid;grid-template-columns:1fr 1fr;gap:34px}
-.top-block h3{font-size:1.04rem;font-family:var(--sans);font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--primary);margin-bottom:18px}
-.top-list{list-style:none;margin:0;padding:0;display:grid;gap:13px}
-.top-list li{display:flex;gap:12px;align-items:baseline;font-weight:500}
-.top-list li::before{
-  content:"";flex:0 0 auto;width:16px;height:9px;margin-top:7px;
-  background:no-repeat center/contain
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 14'%3E%3Cpath d='M2 12 C 9 1, 21 1, 28 12' fill='none' stroke='%23E2641E' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E");
+@media (max-width:420px){ .size-opts{grid-template-columns:repeat(2,1fr)} }
+@media (prefers-reduced-motion:reduce){
+  .bowl-glow,.g-item,.g-item.on>*,.bb-total-val.bump,.bowl-svg{animation:none;transition:none}
+  .g-item{opacity:0;transform:none}.g-item.on{opacity:1}
 }
-.top-list li .local{color:var(--accent-ink);font-weight:700;margin-left:3px}
-.top-foot{margin-top:30px;font-size:.92rem;color:var(--primary-soft);max-width:46ch}
-.top-photo .frame{aspect-ratio:3/4}
 
 /* ============================ STORY (dark) ============================ */
 .story{
@@ -359,7 +410,7 @@ footer{background:var(--primary);color:var(--bg);padding-block:64px 40px}
 .foot-logo .ft{font-family:var(--sans);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-soft)}
 .foot-brand p{margin-top:12px;color:#e7cdbf;font-family:var(--serif);font-style:italic;font-size:1.18rem}
 .foot-cols{display:flex;flex-wrap:wrap;gap:46px}
-.foot-col h4{font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-soft);margin:0 0 14px}
+.foot-col h3{font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-soft);margin:0 0 14px}
 .foot-col a,.foot-col p{color:#f2e3d6;text-decoration:none;font-size:.96rem;display:block;margin-bottom:8px}
 .foot-col a:hover{color:#fff;text-decoration:underline;text-underline-offset:4px}
 .foot-bottom{
@@ -375,11 +426,6 @@ footer{background:var(--primary);color:var(--bg);padding-block:64px 40px}
 .js .reveal.in{opacity:1;transform:none}
 
 /* size cards: keep hover crisp + let them cascade in, not arrive as one slab */
-.size-card.reveal{transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .5s cubic-bezier(.16,1,.3,1), box-shadow .3s ease, border-color .3s ease}
-.size-card:nth-child(2){transition-delay:.06s}
-.size-card:nth-child(3){transition-delay:.12s}
-.size-card:nth-child(4){transition-delay:.18s}
-.size-card:hover{transition-delay:0s}
 
 /* photos breathe on hover - subtle, clipped by the frame */
 .frame img{transition:transform .6s cubic-bezier(.16,1,.3,1)}
@@ -470,8 +516,6 @@ footer{background:var(--primary);color:var(--bg);padding-block:64px 40px}
   .hero-sub{font-size:1.08rem}
 }
 @media (max-width:430px){
-  .sizes{grid-template-columns:1fr 1fr;gap:12px}
-  .size-card .sc-body{padding:0 16px 16px}
   .find-row{flex-direction:column;gap:4px}
   .find-row .lab{flex-basis:auto}
   .brand .brand-word{font-size:1.12rem}
@@ -502,8 +546,7 @@ footer{background:var(--primary);color:var(--bg);padding-block:64px 40px}
     <span class="brand-word">Mo ʻOno Hawaiʻi</span>
   </a>
   <div class="nav-links" id="navlinks">
-    <a href="#bowl">The Bowl</a>
-    <a href="#toppings">Toppings</a>
+    <a href="#bowl">Build a Bowl</a>
     <a href="#story">Our Story</a>
     <a href="#reviews">Reviews</a>
     <a href="#find">Find Us</a>
@@ -534,7 +577,7 @@ footer{background:var(--primary);color:var(--bg);padding-block:64px 40px}
         <span><i class="dot" aria-hidden="true"></i>From $5</span>
         <span><i class="dot" aria-hidden="true"></i>Mon-Fri 10-8</span>
         <span><i class="dot" aria-hidden="true"></i>Vegan-friendly</span>
-        <span><i class="dot" aria-hidden="true"></i>336+ reviews</span>
+        <span><i class="dot" aria-hidden="true"></i>4.8&#9733; on Google</span>
       </div>
     </div>
 
@@ -557,102 +600,124 @@ footer{background:var(--primary);color:var(--bg);padding-block:64px 40px}
 </div>
 
 <!-- ============================ THE BOWL / SIZES ============================ -->
-<section id="bowl" aria-labelledby="bowl-h">
+<section id="bowl" class="builder-sec" aria-labelledby="bowl-h">
   <div class="wrap">
     <div class="sec-head menu-intro reveal">
       <span class="kicker">The Mo ʻOno bowl</span>
-      <h2 id="bowl-h">Start with the bowl.<br>Make it yours.</h2>
+      <h2 id="bowl-h">Build your bowl.</h2>
       <svg class="swash" viewBox="0 0 120 14" aria-hidden="true"><path d="M3 10 C 30 2, 90 2, 117 9"/></svg>
-      <p>Every bowl starts the same way: açaí blended thick, then strawberry, banana, pineapple, coconut, almonds, granola, and honey. Then you build. Pick your size - the rest is up to your ʻono.</p>
+      <p>Every bowl starts with açaí blended thick, then strawberry, banana, pineapple, coconut, almonds, granola and honey. Pick your size, then pile on the good stuff, and watch it come together.</p>
     </div>
 
-    <!-- PRICES & SIZES confirmed from the truck's own menu board (owner photo, 2026-06-19):
-         Mini 8oz $5 · Small 12oz $8 · Medium 16oz $10 · Large 24oz $15. -->
-    <div class="sizes">
-      <article class="size-card reveal">
-        <img class="sc-photo" src="images/toppings.webp" alt="" loading="lazy" decoding="async">
-        <div class="sc-body">
-          <div class="oz">8 oz</div><div class="name">Mini</div>
-          <div class="price"><span>$</span>5</div>
-        </div>
-      </article>
-      <article class="size-card reveal">
-        <img class="sc-photo" src="images/truck-bowl.webp" alt="" loading="lazy" decoding="async">
-        <div class="sc-body">
-          <div class="oz">12 oz</div><div class="name">Small</div>
-          <div class="price"><span>$</span>8</div>
-        </div>
-      </article>
-      <article class="size-card reveal">
-        <img class="sc-photo" src="images/spread-1.webp" alt="" loading="lazy" decoding="async">
-        <div class="sc-body">
-          <div class="oz">16 oz</div><div class="name">Medium</div>
-          <div class="price"><span>$</span>10</div>
-        </div>
-      </article>
-      <article class="size-card reveal">
-        <img class="sc-photo" src="images/lifestyle-mural.webp" alt="" loading="lazy" decoding="async">
-        <div class="sc-body">
-          <div class="oz">24 oz</div><div class="name">Large</div>
-          <div class="price"><span>$</span>15</div>
-        </div>
-      </article>
-    </div>
+    <!-- Real menu from the truck's board (owner photo, 2026-06-19): Mini 8oz $5 · Small 12oz $8 ·
+         Medium 16oz $10 · Large 24oz $15; premium toppings +$1 (50¢ on a Mini). -->
+    <div class="builder reveal">
+      <div class="bowl-stage" data-size="Small">
+        <div class="bowl-glow" aria-hidden="true"></div>
+        <svg class="bowl-svg" viewBox="0 0 400 360" role="img" aria-label="Your açaí bowl, updating as you add toppings">
+          <defs>
+            <radialGradient id="acai" cx="42%" cy="32%" r="74%">
+              <stop offset="0" stop-color="#71284c"/><stop offset="55%" stop-color="#4C1D33"/><stop offset="100%" stop-color="#2a0e1c"/>
+            </radialGradient>
+            <linearGradient id="bowlBody" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#FBF4E9"/><stop offset="100%" stop-color="#E6D4B9"/>
+            </linearGradient>
+          </defs>
+          <!-- vessel -->
+          <path d="M46 142 C 60 252, 120 316, 200 316 C 280 316, 340 252, 354 142 Z" fill="url(#bowlBody)"/>
+          <path d="M46 142 C 60 252, 120 316, 200 316 C 280 316, 340 252, 354 142" fill="none" stroke="#D8C3A2" stroke-width="2"/>
+          <ellipse cx="200" cy="142" rx="156" ry="52" fill="#EFE0C8"/>
+          <ellipse cx="200" cy="140" rx="150" ry="47" fill="url(#acai)"/>
+          <ellipse cx="200" cy="140" rx="150" ry="47" fill="none" stroke="#371423" stroke-width="1.5" opacity=".45"/>
+          <!-- base garnish (always on) -->
+          <g>
+            <path d="M120 138 q 20 -13 40 0 t 40 0 t 40 0 t 40 0" fill="none" stroke="#E4A62C" stroke-width="3.4" stroke-linecap="round" opacity=".9"/>
+            <g fill="#F3E4B0" stroke="#E3CB84" stroke-width="1.5">
+              <ellipse cx="150" cy="126" rx="15" ry="9" transform="rotate(-12 150 126)"/>
+              <ellipse cx="243" cy="150" rx="15" ry="9" transform="rotate(9 243 150)"/>
+              <ellipse cx="196" cy="112" rx="14" ry="8.5" transform="rotate(-4 196 112)"/>
+            </g>
+            <g fill="#D23B2C">
+              <path d="M110 150 c 10 -14 30 -14 40 0 c -12 12 -28 12 -40 0 z"/>
+              <path d="M250 121 c 9 -12 26 -12 34 0 c -10 10 -24 10 -34 0 z"/>
+            </g>
+            <g fill="#C08A4B">
+              <rect x="175" y="150" width="12" height="9" rx="3.5" transform="rotate(18 181 154)"/>
+              <rect x="215" y="120" width="11" height="8" rx="3.5" transform="rotate(-14 220 124)"/>
+              <rect x="128" y="118" width="11" height="8" rx="3.5" transform="rotate(24 133 122)"/>
+              <rect x="268" y="146" width="11" height="8" rx="3.5" transform="rotate(-8 273 150)"/>
+            </g>
+            <g fill="#F1E7D2">
+              <ellipse cx="165" cy="159" rx="8" ry="3" transform="rotate(28 165 159)"/>
+              <ellipse cx="225" cy="132" rx="8" ry="3" transform="rotate(-20 225 132)"/>
+            </g>
+          </g>
+          <!-- premium garnish groups (toggle) -->
+          <g class="g-item" id="g-lilikoi">
+            <path d="M112 128 q 22 -16 44 2 t 44 2 t 44 2" fill="none" stroke="#F0B429" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="150" cy="120" r="2" fill="#5a3b12"/><circle cx="200" cy="124" r="2" fill="#5a3b12"/><circle cx="250" cy="129" r="2" fill="#5a3b12"/>
+          </g>
+          <g class="g-item" id="g-blueberry" fill="#41579c" stroke="#2c3d78" stroke-width="1.2">
+            <circle cx="140" cy="150" r="8"/><circle cx="232" cy="120" r="8"/><circle cx="270" cy="140" r="7.5"/><circle cx="185" cy="159" r="7.5"/>
+          </g>
+          <g class="g-item" id="g-papaya" fill="#F08A3C">
+            <path d="M150 106 l 16 5 l -6 15 l -15 -6 z"/><path d="M255 148 l 15 6 l -7 14 l -14 -7 z"/>
+          </g>
+          <g class="g-item" id="g-peanut" fill="#C4863F"><ellipse cx="126" cy="138" rx="16" ry="11"/></g>
+          <g class="g-item" id="g-almond" fill="#D9B583"><ellipse cx="274" cy="125" rx="15" ry="10"/></g>
+          <g class="g-item" id="g-choc" fill="#43281A">
+            <rect x="200" y="112" width="20" height="6" rx="3" transform="rotate(22 210 115)"/>
+            <rect x="168" y="140" width="18" height="6" rx="3" transform="rotate(-16 177 143)"/>
+            <rect x="236" y="147" width="18" height="6" rx="3" transform="rotate(10 245 150)"/>
+          </g>
+          <g class="g-item" id="g-yogurt" fill="#FBF6EC" stroke="#E6D8BE" stroke-width="1.4">
+            <path d="M176 116 c 0 -16 48 -16 48 0 c 0 12 -48 12 -48 0 z"/>
+          </g>
+          <g class="g-item" id="g-condensed">
+            <path d="M126 132 q 24 12 48 -2 t 48 -2 t 48 2" fill="none" stroke="#F3E3BE" stroke-width="4" stroke-linecap="round"/>
+          </g>
+        </svg>
+        <div class="bb-ticker" aria-hidden="true">Made to your ʻono</div>
+      </div>
 
-    <div class="menu-note reveal">
-      <span class="pill">Standard toppings included</span>
-      <span class="pill">Premium toppings +$1 each</span>
-      <span>Vegan-friendly - skip the honey, butters, yogurt &amp; condensed milk.</span>
+      <div class="bowl-controls">
+        <fieldset class="bb-sizes">
+          <legend>Pick your size</legend>
+          <div class="size-opts" role="radiogroup" aria-label="Bowl size">
+            <button type="button" class="size-opt" role="radio" aria-checked="false" data-size="Mini" data-base="5"><span class="so-oz">8 oz</span><span class="so-name">Mini</span><span class="so-price">$5</span></button>
+            <button type="button" class="size-opt" role="radio" aria-checked="false" data-size="Small" data-base="8"><span class="so-oz">12 oz</span><span class="so-name">Small</span><span class="so-price">$8</span></button>
+            <button type="button" class="size-opt" role="radio" aria-checked="false" data-size="Medium" data-base="10"><span class="so-oz">16 oz</span><span class="so-name">Medium</span><span class="so-price">$10</span></button>
+            <button type="button" class="size-opt" role="radio" aria-checked="false" data-size="Large" data-base="15"><span class="so-oz">24 oz</span><span class="so-name">Large</span><span class="so-price">$15</span></button>
+          </div>
+        </fieldset>
+
+        <p class="bb-included"><span class="pill">In every bowl</span> açaí, strawberry, banana, pineapple, coconut, almonds, granola &amp; honey.</p>
+
+        <fieldset class="bb-tops">
+          <legend>Add the good stuff <span>premium +$1 <i>·</i> 50¢ on a Mini</span></legend>
+          <div class="top-chips">
+            <button type="button" class="top-chip" aria-pressed="false" data-g="g-lilikoi" data-add="1" style="--tc:#F0B429"><span class="dot"></span>Liliko'i butter <span class="star">★</span></button>
+            <button type="button" class="top-chip" aria-pressed="false" data-g="g-blueberry" data-add="1" style="--tc:#41579c"><span class="dot"></span>Blueberries</button>
+            <button type="button" class="top-chip" aria-pressed="false" data-g="g-papaya" data-add="1" style="--tc:#F08A3C"><span class="dot"></span>Papaya</button>
+            <button type="button" class="top-chip" aria-pressed="false" data-g="g-peanut" data-add="1" style="--tc:#C4863F"><span class="dot"></span>Peanut butter</button>
+            <button type="button" class="top-chip" aria-pressed="false" data-g="g-almond" data-add="1" style="--tc:#D9B583"><span class="dot"></span>Almond butter</button>
+            <button type="button" class="top-chip" aria-pressed="false" data-g="g-choc" data-add="1" style="--tc:#43281A"><span class="dot"></span>Chocolate shavings</button>
+            <button type="button" class="top-chip" aria-pressed="false" data-g="g-yogurt" data-add="0.5" style="--tc:#EAD9B8"><span class="dot"></span>Greek yogurt <span class="star">+50¢</span></button>
+            <button type="button" class="top-chip" aria-pressed="false" data-g="g-condensed" data-add="1" style="--tc:#F3E3BE"><span class="dot"></span>Condensed milk</button>
+          </div>
+        </fieldset>
+
+        <div class="bb-checkout">
+          <div class="bb-total"><span class="bb-total-lab">Your bowl</span><span class="bb-total-val" aria-live="polite">$8</span></div>
+          <a class="btn btn--mango" href="https://moonotogo.square.site/" target="_blank" rel="noopener">Order this bowl <span class="arr" aria-hidden="true">→</span></a>
+        </div>
+        <p class="bb-vegan">Vegan? Skip the honey, butters, yogurt &amp; condensed milk - the base is plant-based.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============================ TOPPINGS ============================ -->
-<section id="toppings" style="background:var(--surface)" aria-labelledby="top-h">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="kicker">To your ʻono</span>
-      <h2 id="top-h">The good stuff goes on top.</h2>
-      <svg class="swash" viewBox="0 0 120 14" aria-hidden="true"><path d="M3 10 C 30 2, 90 2, 117 9"/></svg>
-    </div>
-
-    <div class="top-grid">
-      <div class="top-cols reveal">
-        <div class="top-block">
-          <h3>In every bowl</h3>
-          <ul class="top-list">
-            <li>Thick-blended açaí</li>
-            <li>Strawberry, banana &amp; pineapple</li>
-            <li>Coconut &amp; almonds</li>
-            <li>Granola &amp; honey</li>
-          </ul>
-        </div>
-        <div class="top-block">
-          <h3>Premium · +$1</h3>
-          <!-- Confirmed from the truck's menu board (2026-06-19); 50¢ each on a Mini. -->
-          <ul class="top-list">
-            <li>Liliko'i butter <span class="local">★ local favorite</span></li>
-            <li>Blueberries</li>
-            <li>Papaya chunks</li>
-            <li>Peanut butter</li>
-            <li>Almond butter</li>
-            <li>Chocolate shavings</li>
-            <li>Greek yogurt <span class="local">+50¢</span></li>
-            <li>Condensed milk <span class="local">+$1</span></li>
-          </ul>
-        </div>
-        <p class="top-foot">★ Liliko'i butter is the local favorite - a house passion-fruit drizzle. Premium toppings are $1 each (50¢ on a Mini); a few contain dairy.</p>
-      </div>
-
-      <div class="top-photo reveal">
-        <!-- Real photo (owner-supplied, 2026-06-19). Close tactile topping detail. -->
-        <figure class="frame">
-          <img src="images/toppings.webp" alt="Close-up of a Mo ʻOno açaí bowl with sliced banana, chocolate shavings and a scoop of banana nice-cream" loading="lazy" decoding="async">
-        </figure>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- TOPPINGS folded into the interactive Build Your Bowl centerpiece above. -->
 
 <!-- ============================ THE SPREAD (gallery) ============================ -->
 <section class="spread" aria-labelledby="spread-h">
@@ -836,16 +901,16 @@ footer{background:var(--primary);color:var(--bg);padding-block:64px 40px}
       </div>
       <div class="foot-cols">
         <div class="foot-col">
-          <h4>Visit</h4>
+          <h3>Visit</h3>
           <p>591 Haleakala Hwy<br>Kahului, HI 96732</p>
           <a href="https://maps.google.com/?q=Mo+%27Ono+Hawaii+591+Haleakala+Hwy+Kahului" target="_blank" rel="noopener">Get directions →</a>
         </div>
         <div class="foot-col">
-          <h4>Hours</h4>
+          <h3>Hours</h3>
           <p>Mon-Fri&nbsp;&nbsp;10-8<br>Weekends&nbsp;&nbsp;vary<br>Check IG for hours</p>
         </div>
         <div class="foot-col">
-          <h4>Order &amp; Follow</h4>
+          <h3>Order &amp; Follow</h3>
           <a href="https://moonotogo.square.site/" target="_blank" rel="noopener">Order online</a>
           <a href="https://www.instagram.com/moonohawaii/" target="_blank" rel="noopener">Instagram</a>
           <a href="https://www.facebook.com/moonohawaii/" target="_blank" rel="noopener">Facebook</a>
@@ -937,6 +1002,58 @@ footer{background:var(--primary);color:var(--bg);padding-block:64px 40px}
   for(var r=0;r<rows.length;r++){
     setupLoop(rows[r], '.g-set', rows[r].classList.contains('g-row--b') ? 38 : 46);
   }
+})();
+
+/* ---- Build Your Bowl interactive centerpiece ---- */
+(function(){
+  var stage=document.querySelector('.bowl-stage');
+  if(!stage) return;
+  var svg=document.querySelector('.bowl-svg');
+  var sizes=[].slice.call(document.querySelectorAll('.size-opt'));
+  var chips=[].slice.call(document.querySelectorAll('.top-chip'));
+  var totalEl=document.querySelector('.bb-total-val');
+  var scale={Mini:.84,Small:.94,Medium:1,Large:1.1};
+  var state={base:8,size:'Small'};
+
+  function fmt(n){ return '$'+(Number.isInteger(n)?n:n.toFixed(2)); }
+  function recalc(){
+    var total=state.base;
+    chips.forEach(function(c){
+      if(c.getAttribute('aria-pressed')==='true'){
+        var add=parseFloat(c.dataset.add);
+        if(state.size==='Mini' && add===1) add=0.5;   /* 50¢ each on a Mini */
+        total+=add;
+      }
+    });
+    if(totalEl.textContent!==fmt(total)){
+      totalEl.textContent=fmt(total);
+      totalEl.classList.remove('bump'); void totalEl.offsetWidth; totalEl.classList.add('bump');
+    }
+  }
+  function pickSize(btn,focus){
+    sizes.forEach(function(b){ b.setAttribute('aria-checked', b===btn?'true':'false'); b.tabIndex=b===btn?0:-1; });
+    state.base=parseFloat(btn.dataset.base); state.size=btn.dataset.size;
+    stage.dataset.size=state.size; stage.style.setProperty('--bowl-scale',scale[state.size]);
+    if(focus) btn.focus();
+    recalc();
+  }
+  sizes.forEach(function(b,i){
+    b.addEventListener('click',function(){ pickSize(b); });
+    b.addEventListener('keydown',function(e){
+      var d=(e.key==='ArrowRight'||e.key==='ArrowDown')?1:(e.key==='ArrowLeft'||e.key==='ArrowUp')?-1:0;
+      if(d){ e.preventDefault(); pickSize(sizes[(i+d+sizes.length)%sizes.length],true); }
+    });
+  });
+  chips.forEach(function(c){
+    c.addEventListener('click',function(){
+      var on=c.getAttribute('aria-pressed')==='true';
+      c.setAttribute('aria-pressed',String(!on));
+      var g=document.getElementById(c.dataset.g);
+      if(g) g.classList.toggle('on',!on);
+      recalc();
+    });
+  });
+  pickSize(sizes.filter(function(b){return b.dataset.size==='Small';})[0]||sizes[0]);
 })();
 </script>
 </body>
