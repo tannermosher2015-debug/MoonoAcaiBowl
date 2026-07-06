@@ -23,13 +23,14 @@
 <!-- progressive enhancement: only hide-then-reveal when JS is alive; no-JS shows all content -->
 <script>document.documentElement.classList.add('js');</script>
 
-<!-- Fonts: isolated links so a single font issue can't kill the other. Fraunces (display) + Hanken Grotesk (body). -->
+<!-- Fonts: isolated links so a single font issue can't kill the other. Abril Fatface (display) + Nunito Sans (body).
+     (Re-skinned 2026-07-05 off the Fraunces/Hanken house pairing - portfolio divergence.) -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <!-- LCP: fetch the hero bowl as early as possible -->
 <link rel="preload" as="image" href="images/hero-bowl.webp" fetchpriority="high" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&display=swap" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap" />
 
 <style>
 /* ============================================================
@@ -50,8 +51,8 @@
   --shadow:0 20px 44px -30px rgba(42,33,28,.32);
   --shadow-sm:0 8px 22px -16px rgba(42,33,28,.20);
 
-  --serif:"Fraunces", Georgia, "Times New Roman", serif;
-  --sans:"Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif:"Abril Fatface", Georgia, "Times New Roman", serif;
+  --sans:"Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --maxw:1180px;
   --pad:clamp(20px, 5vw, 64px);
@@ -519,6 +520,47 @@ footer{background:var(--primary);color:var(--bg);padding-block:64px 40px}
   .brand .brand-word{font-size:1.12rem}
   .brand .logo-mark{width:30px;height:30px}
 }
+
+/* ============================================================
+   RE-SKIN 2026-07-05 - off the Fraunces/Hanken house vocabulary.
+   Abril Fatface ships ONE weight (400) and no italic: force weight 400 and
+   normal style everywhere the serif shows, or browsers synthesize ugly faux
+   bold/italic. Kickers become plain hand-labels (the tracked-caps pill
+   eyebrow is the portfolio-wide AI tell). Frames go organic "scoop" shapes.
+   ============================================================ */
+h1,h2,h3,.brand-word,.so-name,.so-price,.bb-total-val,.rev-aggregate .score,
+.foot-logo .fw,.name-line,.bb-ticker,.marquee-track,.rev-card blockquote,
+.foot-brand p,.frame .ph b{
+  font-weight:400;font-style:normal;font-variation-settings:normal;
+}
+h1,h2,h3{letter-spacing:.002em;line-height:1.04}
+.hero h1{font-size:clamp(2.9rem,8vw,6.6rem);letter-spacing:0;line-height:.98}
+.hero h1 .pop{font-style:normal}
+.sec-head h2{line-height:1.06}
+
+/* kickers: sentence-case hand-label, no tracking, no caps - not an eyebrow */
+.kicker{
+  font-family:var(--sans);font-weight:800;font-size:.98rem;
+  letter-spacing:0;text-transform:none;color:var(--accent-ink);
+}
+.story .kicker{color:var(--accent-soft)}
+
+/* "in every bowl" label: bold lead-in, not a pill chip */
+.bb-included .pill{
+  background:none;color:var(--primary);padding:0;border-radius:0;
+  font-size:.9rem;font-weight:800;letter-spacing:0;text-transform:none;
+  border-bottom:3px solid var(--accent);margin-right:6px;vertical-align:0;
+}
+
+/* organic "scoop" frames - hand-thrown bowl shapes instead of uniform rounded cards */
+.hero-photo .frame{border-radius:44% 56% 52% 48% / 46% 44% 56% 54%}
+.story-photo .frame{border-radius:38px 64px 42px 58px / 52px 40px 60px 44px}
+.frame--map{border-radius:34px 52px 38px 56px / 48px 36px 54px 40px}
+.rev-card{border-radius:22px 30px 22px 30px / 30px 22px 30px 22px}
+.rc-swash{width:64px;margin:0}
+
+/* review aggregate: keep the real 4.8 stars; slightly calmer letterforms */
+.rev-aggregate .score{font-size:2.4rem}
 </style>
 </head>
 <body>
@@ -808,17 +850,17 @@ footer{background:var(--primary);color:var(--bg);padding-block:64px 40px}
 
     <div class="rev-grid">
       <figure class="rev-card reveal">
-        <div class="rc-stars" role="img" aria-label="Rated 5 out of 5">★★★★★</div>
+        <svg class="swash rc-swash" viewBox="0 0 120 14" aria-hidden="true"><path d="M3 10 C 30 2, 90 2, 117 9"/></svg>
         <blockquote>Delicious açaí bowl with fresh fruit and selection of toppings.</blockquote>
         <figcaption>Verified <span>Google review</span></figcaption>
       </figure>
       <figure class="rev-card reveal">
-        <div class="rc-stars" role="img" aria-label="Rated 5 out of 5">★★★★★</div>
+        <svg class="swash rc-swash" viewBox="0 0 120 14" aria-hidden="true"><path d="M3 10 C 30 2, 90 2, 117 9"/></svg>
         <blockquote>Great service and explanation of the menu.</blockquote>
         <figcaption>Verified <span>Google review</span></figcaption>
       </figure>
       <figure class="rev-card reveal">
-        <div class="rc-stars" role="img" aria-label="Rated 5 out of 5">★★★★★</div>
+        <svg class="swash rc-swash" viewBox="0 0 120 14" aria-hidden="true"><path d="M3 10 C 30 2, 90 2, 117 9"/></svg>
         <blockquote>Got the açaí bowl with liliko'i butter and Greek yogurt.</blockquote>
         <figcaption>Verified <span>Google review</span></figcaption>
       </figure>
@@ -986,7 +1028,7 @@ footer{background:var(--primary);color:var(--bg);padding-block:64px 40px}
   window.addEventListener('load',check);
 })();
 
-/* seamless marquees: clone each strip until the track is wider than the viewport,
+/* gapless marquees: clone each strip until the track is wider than the viewport,
    so the translateX loop never reveals a gap. Re-runs on resize / font + image load.
    Skipped under prefers-reduced-motion (CSS shows the strip statically / wrapped). */
 (function(){
